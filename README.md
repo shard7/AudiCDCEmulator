@@ -19,6 +19,12 @@ Each command is sent as a frame of 4 bytes, with a special lead pulse to signal 
 // TODO Add diagram
 
 
+# Hardware
+For the hardware, I chose an Arduino Nano to communicate with the HU, and an M18 Bluetooth audio module to stream audio from my phone. Both boards are very inexpensive, readily available, and easy to use.
+
+The M18 Bluetooth module pairs with a phone and provides line level audio that can be fed directly to the HU's audio input pins. It also supports basic keys for controlling playback. The KEY input has a pull up resistor and needs to be pulled down with a suitable resistor to hold the input at 0, 1, 2, or 3V. Two digital output pins on the Nano are connected via diodes and suitably sized resistors to pull the voltage down to 1V or 2V to trigger the Next and Prev keys. Not that the resistor values differ from those specified in the M18 spec sheet to account for the additional voltage drop from the diodes.
+
+![CDC Emulator Hardware](CDC.png)
 
 
 
