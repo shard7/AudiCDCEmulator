@@ -20,9 +20,11 @@ Each command is sent as a frame of 4 bytes, with a special lead pulse to signal 
 
 
 # Hardware
-For the hardware, I chose an Arduino Nano to communicate with the HU, and an M18 Bluetooth audio module to stream audio from my phone. Both boards are very inexpensive, readily available, and easy to use.
+For the hardware, I chose an *[Arduino Nano clone](https://www.amazon.com/gp/product/B0713XK923)* to communicate with the HU, and an *[M18 Bluetooth module](https://www.amazon.com/gp/product/B07W4PJ469)* to wireless connect to my phone and stream audio. Both boards are very inexpensive, readily available, and easy to use.
 
-The M18 Bluetooth module pairs with a phone and provides line level audio that can be fed directly to the HU's audio input pins. It also supports basic keys for controlling playback. The KEY input has a pull up resistor and needs to be pulled down with a suitable resistor to hold the input at 0, 1, 2, or 3V. Two digital output pins on the Nano are connected via diodes and suitably sized resistors to pull the voltage down to 1V or 2V to trigger the Next and Prev keys. Not that the resistor values differ from those specified in the M18 spec sheet to account for the additional voltage drop from the diodes.
+The Nano's SPI pins (MOSI and SCK) and digital input pin 2 (which can trigger interrupts) are connected directly to the CDC's data communication pins since everything conviniently operates on 5v logic. The Nano is directly powered from a +12V line that is active only when the HU is on (thus ensuring that the hardware won't drain the car's battery or maintain a Bluetooth connection when not in use).
+
+The M18 Bluetooth module provides line level audio out that can be fed directly to the HU's audio input pins. It also supports basic keys for controlling playback. The **KEY** input is pulled up to 3.4V by an internal 26k resistor, and needs to be pulled down with a suitable resistor to 0v (On/Off), 0.9v (Prev), 1.8v (Next), or 2.5V (Pause/Play). Two digital output pins on the Nano are connected via diodes and suitably sized resistors to trigger the Next and Prev key functions (note that the resistor values differ from those specified in the M18 specs to account for the additional 0.7v drop across the diodes). The M18 Bluetooth module is powered by the Nano's built in 5V regultor.
 
 ![CDC Emulator Hardware](CDC.png)
 
