@@ -46,15 +46,7 @@
 // Delay between SPI byte transmissions
 #define SPI_TX_BYTE_DELAY 800
 
-// Playback modes
-#define MODE_PLAY 0xFF
-#define MODE_SHFFL 0x55
-#define MODE_SCAN 0x00
-
-volatile uint8_t cd=0xBE;
-volatile uint8_t tr=0xFE; // Two 4-bit digits, inverted
-volatile uint8_t mode=MODE_PLAY;
-
+// Clock time (millis) when last packet was sent to HU
 unsigned long last_package_send_time = 0;
 
 unsigned long last_edge_time = micros();
